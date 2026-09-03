@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+.vscode/
+.env
+venv/
+backend/course_db/
