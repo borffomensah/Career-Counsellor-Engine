@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import requests
 
@@ -10,9 +11,9 @@ st.set_page_config(
 st.title("💬 AI Career Counselor & Roadmap Assistant")
 st.markdown("🎯 **Welcome to the Tech Career Pathway Assessment!** Have a natural conversation about your career goals, pivot strategies, and step-by-step milestones.")
 
-# Set your backend URL: Use local endpoint for testing, or your live Render URL when deployed
-# BACKEND_URL = "https://tech-career-backend.onrender.com/chat/"
-BACKEND_URL = "http://127.0.0.1:8000/chat/"
+# Set your backend URL: Pulls from environment variable if set, otherwise uses your live Render URL
+DEFAULT_BACKEND = "https://your-backend-name.onrender.com/chat/"
+BACKEND_URL = os.getenv("BACKEND_URL", DEFAULT_BACKEND)
 
 # Initialize chat history in session state to match the classic welcome prompt flow
 if "messages" not in st.session_state:
