@@ -8,15 +8,16 @@ st.set_page_config(
 )
 
 st.title("💬 AI Career Counselor & Roadmap Assistant")
-st.write("Have a natural conversation about your career goals, pivot strategies, and step-by-step milestones.")
+st.markdown("🎯 **Welcome to the Tech Career Pathway Assessment!** Have a natural conversation about your career goals, pivot strategies, and step-by-step milestones.")
 
-# Point to your live backend endpoint
-API_URL = "https://career-roadmap-backend-7e6h.onrender.com/chat/"
+# Set your backend URL: Use local endpoint for testing, or your live Render URL when deployed
+# BACKEND_URL = "https://tech-career-backend.onrender.com/chat/"
+BACKEND_URL = "http://127.0.0.1:8000/chat/"
 
-# Initialize chat history in session state if not present
+# Initialize chat history in session state to match the classic welcome prompt flow
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "assistant", "content": "Hello! I am your AI Career Counselor. What is your background, and what career path or tech domain are you looking to explore?"}
+        {"role": "assistant", "content": "Let's identify your ideal technical career track across 8 specialized domains. There are 10 questions. For each question, simply reply with your choice (A, B, C, D, E, F, G, or H). Respond OK and let's get started!"}
     ]
 
 # Display prior chat messages
@@ -24,9 +25,9 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Handle user input
+# Handle user input via chat box
 if prompt := st.chat_input("Ask about your career path, skills, or roadmap phases..."):
-    # Append user message
+    # Append user message to session state and display
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
@@ -39,7 +40,7 @@ if prompt := st.chat_input("Ask about your career path, skills, or roadmap phase
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
             try:
-                response = requests.post(API_URL, json=payload)
+                response = requests.post(BACKEND_URL, json=payload)
                 if response.status_code == 200:
                     data = response.json()
                     reply = data.get("reply", "I'm here to help!")
