@@ -1,3 +1,21 @@
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from typing import List
+
+# 1. Instantiate FastAPI FIRST before any route decorators
+app = FastAPI()
+
+# (Ensure your models, data structures, and database initialization like `collection` 
+# are defined above or imported here before the route below)
+
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
+class ChatRequest(BaseModel):
+    messages: List[ChatMessage]
+
+
 @app.post("/chat/")
 def chat_endpoint(payload: ChatRequest):
     try:
@@ -20,13 +38,10 @@ def chat_endpoint(payload: ChatRequest):
                 return {"reply": "⚠️ **Invalid selection.** Please reply with **OK** to get started with the assessment."}
 
         # 3. Extract and validate answers strictly from subsequent messages
-        # user_messages[0] was the "OK". user_messages[1:] correspond to Q1 through Q10 responses.
         valid_answers = []
         for msg in user_messages[1:]:
             cleaned_input = msg.content.strip().upper()
-            # Check if the cleaned input is strictly a single valid letter choice (or starts with it cleanly)
             matched = next((char for char in [cleaned_input] if char in VALID_LETTERS), None)
-            # Fallback for looser inputs if desired, but strictly checking single-letter length prevents keyword bleeding (like 'a' in roadmap)
             if not matched and len(cleaned_input) <= 3:
                 matched = next((char for char in cleaned_input if char in VALID_LETTERS), None)
             
@@ -112,5 +127,4 @@ def chat_endpoint(payload: ChatRequest):
             return {"reply": "Assessment complete! Type 'roadmap' to view your tailored learning plan."}
 
     except Exception as e:
-    
         raise HTTPException(status_code=500, detail=str(e))
