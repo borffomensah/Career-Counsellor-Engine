@@ -12,7 +12,7 @@ st.title("💬 AI Career Counselor & Roadmap Assistant")
 st.markdown("🎯 **Welcome to the Tech Career Pathway Assessment!** Have a natural conversation about your career goals, pivot strategies, and step-by-step milestones.")
 
 # Set your backend URL: Pulls from environment variable if set, otherwise uses your live Render URL
-DEFAULT_BACKEND = "https://your-backend-name.onrender.com/chat/"
+DEFAULT_BACKEND = "https://career-counsellor-backend.onrender.com/chat/"
 BACKEND_URL = os.getenv("BACKEND_URL", DEFAULT_BACKEND)
 
 # Initialize chat history in session state to match the classic welcome prompt flow
