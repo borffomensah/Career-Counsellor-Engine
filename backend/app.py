@@ -1,11 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
-import os
 
 app = FastAPI()
 
-# --- Quiz Data & Configuration ---
+# --- Career Quiz Questions & Mappings ---
 VALID_LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H"]
 
 QUIZ_QUESTIONS = [
