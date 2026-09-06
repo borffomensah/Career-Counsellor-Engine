@@ -38,7 +38,7 @@ The application is split into a decoupled client-server architecture:
 👤 Author
 Daniel Borffo Mensah
 
-Data Scientist, Statistical Analyst & Machine Learning Engineer
+Data Scientist, Statistical/Quantitative Analyst & Machine Learning Engineer
 
 
 ## 🗂️ Project Structure
