@@ -53,7 +53,6 @@ if prompt := st.chat_input("Ask about your career path, skills, or roadmap phase
             except Exception as e:
                 st.error(f"Could not connect to backend server: {e}")
 
-st.sidebar.markdown("---")
-with st.sidebar.expander("ℹ️ System & Author Info"):
+"ℹ️ System & Author Info":
     st.caption("**System:** JBG Logistics")
     st.caption("**Engineer:** Daniel Borffo Mensah  borffo.dev@gmail.com")
